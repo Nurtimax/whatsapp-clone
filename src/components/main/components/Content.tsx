@@ -8,7 +8,7 @@ interface IContentProps {
 const StyledContent = styled(Box)(() => ({}));
 
 const Content: FC<IContentProps> = () => {
-   return <StyledContent>Content</StyledContent>;
+   return <StyledContent></StyledContent>;
 };
 
 export default Content;
