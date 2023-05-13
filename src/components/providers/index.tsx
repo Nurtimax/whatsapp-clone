@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { CssBaseline } from '@mui/material';
 
 // UI
 import { ThemeProvider } from '../UI';
@@ -13,11 +14,14 @@ interface IProvidersProps {
 
 const Providers: FC<IProvidersProps> = ({ children }) => {
    return (
-      <Provider store={store}>
-         <PersistGate loading={null} persistor={persistor}>
-            <ThemeProvider>{children}</ThemeProvider>
-         </PersistGate>
-      </Provider>
+      <>
+         <CssBaseline />
+         <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+               <ThemeProvider>{children}</ThemeProvider>
+            </PersistGate>
+         </Provider>
+      </>
    );
 };
 
