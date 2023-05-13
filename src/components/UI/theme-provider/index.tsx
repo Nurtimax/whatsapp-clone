@@ -1,6 +1,8 @@
 import { FC, ReactNode } from 'react';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material';
 
+import { useAppSelector } from '../../../redux/hook';
+
 interface IThemeProviderProps {
    children: ReactNode;
 }
@@ -16,6 +18,8 @@ const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
    * lg, large: 1200px
    * xl, extra-lerge: 1536px 
   */
+
+   const { data } = useAppSelector((state) => state.theme);
 
    const theme = createTheme({
       palette: {
@@ -37,7 +41,8 @@ const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
          success: {
             main: '#25D366',
             light: '#34B7F1'
-         }
+         },
+         mode: data.mode
       }
    });
 

@@ -1,14 +1,10 @@
 import React from 'react';
 
 import './App.css';
-import { Button } from './components/UI';
+import { AppRoutes } from './routes';
 
 function App() {
-   return (
-      <div>
-         <Button>Button</Button>
-      </div>
-   );
+   return <AppRoutes />;
 }
 
 export default App;
