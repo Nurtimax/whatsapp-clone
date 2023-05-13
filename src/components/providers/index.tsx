@@ -4,9 +4,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 // UI
 import { ThemeProvider } from '../UI';
-
 // redux store
-import store, { persistor } from '@/redux';
+import store, { persistor } from '../../redux';
 
 interface IProvidersProps {
    children: ReactNode;
