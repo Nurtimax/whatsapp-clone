@@ -14,7 +14,7 @@ const StyledChatItem = styled(Box)(({ theme }) => ({
    alignItems: 'center',
    gap: '1rem',
    height: '8vh',
-   border: '1px solid',
+   border: `1px solid ${theme.palette.mode === 'dark' ? 'black' : 'white'}`,
    borderRadius: '3px',
    cursor: 'pointer'
 }));

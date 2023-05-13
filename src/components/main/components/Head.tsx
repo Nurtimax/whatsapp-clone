@@ -12,7 +12,7 @@ const StyledHead = styled(Box)(() => ({
    alignItems: 'center',
    gap: '1rem',
    padding: '.5rem',
-   borderBottom: '1px solid'
+   borderBottom: '1px solid black'
 }));
 
 const Head: FC<IHeadProps> = () => {

@@ -4,7 +4,7 @@ import { IThemeInitialState } from '../../types/theme';
 
 const initialState: IThemeInitialState = {
    data: {
-      mode: 'dark'
+      mode: 'light'
    }
 };
 
