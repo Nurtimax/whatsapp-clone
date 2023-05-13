@@ -1,9 +1,14 @@
 import React from 'react';
 
 import './App.css';
+import { Button } from './components/UI';
 
 function App() {
-   return <div></div>;
+   return (
+      <div>
+         <Button>Button</Button>
+      </div>
+   );
 }
 
 export default App;

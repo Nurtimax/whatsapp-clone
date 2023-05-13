@@ -5,7 +5,7 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import rootReducer from './rootReducer';
 
 const persistConfig = {
-   key: 'root',
+   key: 'WhatsApp-Nurtimax05',
    version: 1,
    storage
 };
