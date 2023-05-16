@@ -1,9 +1,12 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Box, styled, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import ProfilePicture from '../../profile-picture';
+import { useAppSelector } from '../../../redux/hook';
+import { Pokedex } from '../../../redux/slices/chat-slice';
 
-interface IChatItemProps {
+interface IChatItemProps extends Pokedex {
    [key: string]: unknown;
 }
 
@@ -19,11 +22,21 @@ const StyledChatItem = styled(Box)(({ theme }) => ({
    cursor: 'pointer'
 }));
 
-const ChatItem: FC<IChatItemProps> = () => {
+const ChatItem: FC<IChatItemProps> = ({ id }) => {
+   const {
+      contact: { data }
+   } = useAppSelector((state) => state);
+
+   const findedData = useMemo(() => {
+      return data.find((item) => item.id === id);
+   }, [data, id]);
+
    return (
       <StyledChatItem>
          <ProfilePicture />
-         <Typography>Nurtilek</Typography>
+         <Link to={`chat/${id}`}>
+            <Typography>{findedData?.name}</Typography>
+         </Link>
       </StyledChatItem>
    );
 };

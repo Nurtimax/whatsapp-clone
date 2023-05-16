@@ -5,11 +5,12 @@ import { profilePicture } from '../../assets';
 
 interface IProfilePictureProps {
    [key: string]: unknown;
+   picture?: string;
 }
 
 const StyledProfilePicture = styled(Box)(() => ({
-   width: '3.5vw',
-   height: '6.25vh',
+   width: '50px',
+   height: '50px',
    justifySelf: 'flex-end',
    '& img': {
       width: '100%',
@@ -19,10 +20,10 @@ const StyledProfilePicture = styled(Box)(() => ({
    }
 }));
 
-const ProfilePicture: FC<IProfilePictureProps> = () => {
+const ProfilePicture: FC<IProfilePictureProps> = ({ picture }) => {
    return (
       <StyledProfilePicture>
-         <img src={profilePicture} alt="your profile picture" />
+         <img src={picture ? picture : profilePicture} alt="your profile picture" />
       </StyledProfilePicture>
    );
 };

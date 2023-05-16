@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { Box, styled } from '@mui/material';
 
+import { useAppSelector } from '../../../redux/hook';
+
 import ChatItem from './ChatItem';
 
 interface IChatListProps {
@@ -14,10 +16,11 @@ const StyledChatList = styled(Box)(() => ({
 }));
 
 const ChatList: FC<IChatListProps> = () => {
+   const { data } = useAppSelector((state) => state.chat);
    return (
       <StyledChatList>
-         {[1, 2, 3, 4, 5].map((item) => (
-            <ChatItem key={item} />
+         {data.map((item) => (
+            <ChatItem key={item.id} {...item} />
          ))}
       </StyledChatList>
    );

@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Box, styled } from '@mui/material';
 
-import MainContent from '../../components/main';
+// import MainContent from '../../components/main';
 
 interface IMainProps {
    [key: string]: unknown;
@@ -15,7 +16,8 @@ const StyledMain = styled(Box)(({ theme }) => ({
 const Main: FC<IMainProps> = () => {
    return (
       <StyledMain>
-         <MainContent />
+         {/* <MainContent /> */}
+         <Outlet />
       </StyledMain>
    );
 };
