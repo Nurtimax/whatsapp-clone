@@ -16,7 +16,12 @@ const StyledChatList = styled(Box)(() => ({
 }));
 
 const ChatList: FC<IChatListProps> = () => {
-   const { data } = useAppSelector((state) => state.chat);
+   const { data, isLoading } = useAppSelector((state) => state.chat);
+
+   if (isLoading) {
+      return <h1>Loading...</h1>;
+   }
+
    return (
       <StyledChatList>
          {data.map((item) => (

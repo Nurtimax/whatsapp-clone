@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 
-import { apiTokenInstance, host, idInstance } from '../../utils/constants/axios-instance';
+import { host } from '../../utils/constants/axios-instance';
+import { WHATSAPP_NURTIMAX05 } from '../../utils/constants/local-storage';
+
+import { IAuthSliceThunkParams } from './auth-slice';
 
 export interface IGetUserAvatarSliceThunkParams {
    chatId: string;
@@ -17,10 +20,6 @@ export interface InitialStateType {
    isLoading: boolean;
 }
 
-if (!idInstance || !apiTokenInstance || !host) {
-   throw new Error('Environment variables not set');
-}
-
 const initialState: InitialStateType = {
    data: {
       urlAvatar: '',
@@ -29,11 +28,16 @@ const initialState: InitialStateType = {
    isLoading: false
 };
 
+const auth: IAuthSliceThunkParams = JSON.parse(localStorage.getItem(WHATSAPP_NURTIMAX05) as string);
+
 export const getUserAvatarImageThunk = createAsyncThunk(
    'userAvatar/getUserAvatarImageThunk',
    async (data: IGetUserAvatarSliceThunkParams) => {
       try {
-         const response = await axios.post(`${host}/waInstance${idInstance}/getAvatar/${apiTokenInstance}`, data);
+         const response = await axios.post(
+            `${host}/waInstance${auth.idInstance}/getAvatar/${auth.apiTokenInstance}`,
+            data
+         );
 
          const result: Pokedex = response.data;
 

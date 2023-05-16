@@ -4,14 +4,22 @@ import { IThemeInitialState } from '../../types/theme';
 
 const initialState: IThemeInitialState = {
    data: {
-      mode: 'light'
+      mode: 'dark'
    }
 };
 
 const themeSlice = createSlice({
    name: 'themeSlice',
    initialState,
-   reducers: {}
+   reducers: {
+      changeTheme: (state) => {
+         if (state.data.mode === 'dark') {
+            state.data.mode = 'light';
+         } else {
+            state.data.mode = 'dark';
+         }
+      }
+   }
 });
 
 export const ActionTheme = themeSlice.actions;

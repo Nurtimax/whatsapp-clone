@@ -1,13 +1,24 @@
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import {
+   persistStore,
+   persistReducer,
+   FLUSH,
+   REHYDRATE,
+   PAUSE,
+   PERSIST,
+   PURGE,
+   REGISTER,
+   PersistConfig
+} from 'redux-persist';
 
-import rootReducer from './rootReducer';
+import rootReducer, { IRootReducerType } from './rootReducer';
 
-const persistConfig = {
+const persistConfig: PersistConfig<IRootReducerType> = {
    key: 'WhatsApp-Nurtimax05',
    version: 1,
-   storage
+   storage,
+   whitelist: ['auth', 'theme']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

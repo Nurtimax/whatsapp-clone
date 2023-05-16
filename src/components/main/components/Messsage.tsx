@@ -9,11 +9,12 @@ interface IMesssageProps {
    [key: string]: unknown;
 }
 
-const StyledMesssage = styled(Box)(() => ({
+const StyledMesssage = styled(Box)(({ theme }) => ({
    height: '84vh',
    width: '100%',
-   background: '#1b1a1a',
-   overflow: 'auto'
+   overflow: 'auto',
+   background: theme.palette.mode === 'dark' ? '#000' : '#cecccc',
+   color: theme.palette.mode !== 'dark' ? '#000' : '#cecccc'
 }));
 
 const Messsage: FC<IMesssageProps> = () => {

@@ -9,7 +9,7 @@ interface IMainProps {
 }
 
 const StyledMain = styled(Box)(({ theme }) => ({
-   background: theme.palette.secondary.dark + 80,
+   background: theme.palette.secondary.contrastText,
    width: '100%'
 }));
 

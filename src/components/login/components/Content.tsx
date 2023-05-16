@@ -3,13 +3,11 @@ import { Box, FormControl, FormLabel, styled, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { toast } from 'react-hot-toast';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
 
 import Input from '../../UI/input';
 import { Button } from '../../UI';
-import { auth } from '../../../firebase';
-import { ActionAuthSlice } from '../../../redux/slices/auth-slice';
+import { useAppDispatch } from '../../../redux/hook';
+import { authSliceThunk } from '../../../redux/slices/auth-slice';
 
 interface IContentProps {
    [key: string]: unknown;
@@ -31,24 +29,22 @@ const StyledContent = styled('form')(({ theme }) => ({
 const Content: FC<IContentProps> = () => {
    const navigate = useNavigate();
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
    const { values, handleChange, handleSubmit } = useFormik({
       initialValues: {
-         email: '',
-         password: ''
+         idInstance: '',
+         apiTokenInstance: ''
       },
       onSubmit: async (value, actions) => {
-         const email = value.email;
-         const password = value.password;
-
          try {
-            const response = await signInWithEmailAndPassword(auth, email, password);
-            console.log(response);
-            dispatch(ActionAuthSlice.getUser(response.user));
-            navigate('/');
-            actions.resetForm();
-            toast.success('Successfully');
+            const response = await dispatch(authSliceThunk(value)).unwrap();
+            if (response?.stateInstance) {
+               if (response?.stateInstance === 'authorized') {
+                  navigate('/');
+                  actions.resetForm();
+               }
+            }
          } catch (err) {
             toast.error('Something is wrong in login');
          }
@@ -62,25 +58,23 @@ const Content: FC<IContentProps> = () => {
          </Typography>
          <Box sx={{ display: 'grid', gap: '.5rem' }}>
             <FormControl fullWidth>
-               <FormLabel>Email</FormLabel>
+               <FormLabel>idInstance</FormLabel>
                <Input
                   fullWidth
-                  placeholder="Enter your user email"
-                  value={values.email}
+                  placeholder="Enter your  idInstance"
+                  value={values.idInstance}
                   onChange={handleChange}
-                  name="email"
-                  type="email"
+                  name="idInstance"
                />
             </FormControl>
             <FormControl fullWidth>
-               <FormLabel>Password</FormLabel>
+               <FormLabel>apiTokenInstance</FormLabel>
                <Input
                   fullWidth
-                  placeholder="Enter your user password"
-                  value={values.password}
+                  placeholder="Enter your  apiTokenInstance"
+                  value={values.apiTokenInstance}
                   onChange={handleChange}
-                  name="password"
-                  type="password"
+                  name="apiTokenInstance"
                />
             </FormControl>
          </Box>

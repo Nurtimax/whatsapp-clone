@@ -14,7 +14,7 @@ interface IFormContentProps {
 }
 
 const StyledFormContent = styled('form')(({ theme }) => ({
-   background: theme.palette.secondary.dark + 80,
+   background: theme.palette.secondary.contrastText,
    height: '8vh',
    padding: '0 1rem',
    display: 'grid',

@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-import { apiTokenInstance, host, idInstance } from '../../utils/constants/axios-instance';
+import { host } from '../../utils/constants/axios-instance';
+import { WHATSAPP_NURTIMAX05 } from '../../utils/constants/local-storage';
+
+import { IAuthSliceThunkParams } from './auth-slice';
+import { getChatDetailSliceThunk } from './chat-details-slice';
 
 const initialState = {};
 
@@ -11,17 +15,19 @@ interface ISendMessage {
    chatId: string;
 }
 
-if (!idInstance || !apiTokenInstance) {
-   throw new Error('Environment variables not set');
-}
+const auth: IAuthSliceThunkParams = JSON.parse(localStorage.getItem(WHATSAPP_NURTIMAX05) as string);
 
-export const sendMessageThunk = createAsyncThunk('sendMessage/sendMessageThunk', async (message: ISendMessage) => {
-   try {
-      await axios.post(`${host}/waInstance${idInstance}/sendMessage/${apiTokenInstance}`, message);
-   } catch (error) {
-      toast.error('sendMessage Error');
+export const sendMessageThunk = createAsyncThunk(
+   'sendMessage/sendMessageThunk',
+   async (message: ISendMessage, { dispatch }) => {
+      try {
+         await axios.post(`${host}/waInstance${auth.idInstance}/sendMessage/${auth.apiTokenInstance}`, message);
+         dispatch(getChatDetailSliceThunk({ chatId: message.chatId }));
+      } catch (error) {
+         toast.error('sendMessage Error');
+      }
    }
-});
+);
 
 const sendMessageSlice = createSlice({
    name: 'sendMessage',

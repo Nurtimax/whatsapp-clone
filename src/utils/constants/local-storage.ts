@@ -1,0 +1,1 @@
+export const WHATSAPP_NURTIMAX05 = 'WHATSAPP_DATA';

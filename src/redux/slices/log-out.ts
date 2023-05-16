@@ -11,7 +11,7 @@ export interface IAuthSliceThunkParams {
 }
 
 export interface IAuthPokedox {
-   stateInstance: 'notAuthorized' | 'authorized';
+   isLogout: boolean;
 }
 
 interface InitialStateType {
@@ -20,21 +20,19 @@ interface InitialStateType {
 
 const initialState: InitialStateType = {
    data: {
-      stateInstance: 'notAuthorized'
+      isLogout: false
    }
 };
 
-export const authSliceThunk = createAsyncThunk('authSlice/authSliceThunk', async (data: IAuthSliceThunkParams) => {
+const auth: IAuthSliceThunkParams = JSON.parse(localStorage.getItem(WHATSAPP_NURTIMAX05) as string);
+
+export const logOutSliceThunk = createAsyncThunk('logOutSlice/logOutSliceThunk', async () => {
    try {
-      const response = await axios.get(
-         `${host}/waInstance${data.idInstance}/getStateInstance/${data.apiTokenInstance}`
-      );
+      const response = await axios.get(`${host}/waInstance${auth.idInstance}/logout/${auth.apiTokenInstance}`);
 
       const result: IAuthPokedox = response.data;
 
-      localStorage.setItem(WHATSAPP_NURTIMAX05, JSON.stringify(data));
-
-      if (result.stateInstance === 'authorized') {
+      if (!result.isLogout) {
          toast.success('You are authorized');
       } else {
          toast.error('You are notAuthorized');
@@ -50,30 +48,30 @@ export const authSliceThunk = createAsyncThunk('authSlice/authSliceThunk', async
    }
 });
 
-const authSlice = createSlice({
-   name: 'authSlice',
+const logOutSlice = createSlice({
+   name: 'logOutSlice',
    initialState,
    reducers: {},
    extraReducers: (builder) => {
       builder
-         .addCase(authSliceThunk.fulfilled, (state, action) => {
+         .addCase(logOutSliceThunk.fulfilled, (state, action) => {
             if (action.payload) {
                state.data = action.payload;
             }
          })
-         .addCase(authSliceThunk.pending, () => {})
-         .addCase(authSliceThunk.rejected, (state) => {
+         .addCase(logOutSliceThunk.pending, () => {})
+         .addCase(logOutSliceThunk.rejected, (state) => {
             return {
                ...state,
                data: {
                   ...state.data,
-                  stateInstance: 'notAuthorized'
+                  isLogout: false
                }
             };
          });
    }
 });
 
-export const ActionAuthSlice = authSlice.actions;
+export const ActionLogOutSlice = logOutSlice.actions;
 
-export default authSlice;
+export default logOutSlice;
