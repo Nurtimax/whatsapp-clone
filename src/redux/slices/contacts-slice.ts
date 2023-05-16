@@ -20,10 +20,12 @@ export enum Type {
 
 interface InitialState {
    data: Pokedex[];
+   isLoading: boolean;
 }
 
 const initialState: InitialState = {
-   data: []
+   data: [],
+   isLoading: false
 };
 
 const auth: IAuthSliceThunkParams = JSON.parse(localStorage.getItem(WHATSAPP_NURTIMAX05) as string);
@@ -49,9 +51,14 @@ const contactsSlice = createSlice({
       builder
          .addCase(getChatSliceThunk.fulfilled, (state, action) => {
             state.data = action.payload || [];
+            state.isLoading = false;
          })
-         .addCase(getChatSliceThunk.pending, () => {})
-         .addCase(getChatSliceThunk.rejected, () => {});
+         .addCase(getChatSliceThunk.pending, (state) => {
+            state.isLoading = true;
+         })
+         .addCase(getChatSliceThunk.rejected, (state) => {
+            state.isLoading = false;
+         });
    }
 });
 

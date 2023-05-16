@@ -24,12 +24,16 @@ const StyledChatItem = styled(Box)(({ theme }) => ({
 
 const ChatItem: FC<IChatItemProps> = ({ id }) => {
    const {
-      contact: { data }
+      contact: { data, isLoading }
    } = useAppSelector((state) => state);
 
    const findedData = useMemo(() => {
       return data.find((item) => item.id === id);
    }, [data, id]);
+
+   if (isLoading) {
+      return <h1>Loading...</h1>;
+   }
 
    return (
       <StyledChatItem>

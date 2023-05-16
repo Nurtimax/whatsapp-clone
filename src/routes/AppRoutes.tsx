@@ -55,12 +55,9 @@ const AppRoutes: FC<IAppRoutesProps> = () => {
    useEffect(() => {
       if (auth) {
          dispatch(authSliceThunk(auth));
+         dispatch(chatSliceThunk());
+         dispatch(getChatSliceThunk());
       }
-   }, [dispatch]);
-
-   useEffect(() => {
-      dispatch(chatSliceThunk());
-      dispatch(getChatSliceThunk());
    }, [dispatch]);
 
    return <RouterProvider router={router} />;
