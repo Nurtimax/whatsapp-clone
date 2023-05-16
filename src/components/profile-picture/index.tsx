@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { Box, styled } from '@mui/material';
+import { Box, BoxProps, styled } from '@mui/material';
 
 import { profilePicture } from '../../assets';
 
-interface IProfilePictureProps {
+interface IProfilePictureProps extends BoxProps {
    [key: string]: unknown;
    picture?: string;
 }
@@ -20,9 +20,9 @@ const StyledProfilePicture = styled(Box)(() => ({
    }
 }));
 
-const ProfilePicture: FC<IProfilePictureProps> = ({ picture }) => {
+const ProfilePicture: FC<IProfilePictureProps> = ({ picture, ...props }) => {
    return (
-      <StyledProfilePicture>
+      <StyledProfilePicture {...props}>
          <img src={picture ? picture : profilePicture} alt="your profile picture" />
       </StyledProfilePicture>
    );

@@ -12,7 +12,7 @@ interface IChatItemProps extends Pokedex {
 
 const StyledChatItem = styled(Box)(({ theme }) => ({
    padding: '.5rem',
-   background: theme.palette.secondary.dark + 80,
+   background: theme.palette.secondary.contrastText,
    display: 'flex',
    alignItems: 'center',
    gap: '1rem',

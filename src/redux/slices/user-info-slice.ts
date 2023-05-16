@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 
-import { apiTokenInstance, host, idInstance } from '../../utils/constants/axios-instance';
+import { host } from '../../utils/constants/axios-instance';
+import { WHATSAPP_NURTIMAX05 } from '../../utils/constants/local-storage';
+
+import { IAuthSliceThunkParams } from './auth-slice';
 
 export interface Pokedex {
    avatar: string;
@@ -31,15 +34,16 @@ export interface IGetUserInfoSliceThunkParams {
    chatId: string;
 }
 
-if (!idInstance || !apiTokenInstance || !host) {
-   throw new Error('Environment variables not set');
-}
+const auth: IAuthSliceThunkParams = JSON.parse(localStorage.getItem(WHATSAPP_NURTIMAX05) as string);
 
 export const getUserInfoSliceThunk = createAsyncThunk(
    'userInfoSlice/getUserInfoSliceThunk',
    async (data: IGetUserInfoSliceThunkParams) => {
       try {
-         const response = await axios.post(`${host}/waInstance${idInstance}/GetContactInfo/${apiTokenInstance}`, data);
+         const response = await axios.post(
+            `${host}/waInstance${auth.idInstance}/GetContactInfo/${auth.apiTokenInstance}`,
+            data
+         );
 
          const result: Pokedex = response.data;
 

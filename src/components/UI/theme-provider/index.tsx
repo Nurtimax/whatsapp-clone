@@ -30,7 +30,8 @@ const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
          },
          secondary: {
             main: '#cdcdcd',
-            dark: '#777777'
+            dark: '#777777',
+            contrastText: data.mode === 'dark' ? '#77777780' : '#f5f5f581'
          },
          error: {
             main: '#FF3B30'

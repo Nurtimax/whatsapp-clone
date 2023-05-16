@@ -9,8 +9,8 @@ interface ILayoutProps {
 }
 
 const StyledLayout = styled(Box)(({ theme }) => ({
-   background: theme.palette.mode === 'dark' ? '#000' : '#f6f6f6',
-   color: theme.palette.mode !== 'dark' ? '#000' : '#f6f6f6',
+   background: theme.palette.mode === 'dark' ? '#000' : '#cecccc',
+   color: theme.palette.mode !== 'dark' ? '#000' : '#cecccc',
    display: 'flex'
 }));
 
