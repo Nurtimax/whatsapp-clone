@@ -1,4 +1,4 @@
-import { Box, BoxProps, styled, useTheme } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import { FC } from 'react';
 
 import Main from './main';
@@ -8,21 +8,15 @@ interface ILayoutProps {
    [key: string]: unknown;
 }
 
-interface IStyledLayoutExtendsProps extends BoxProps {
-   [key: string]: unknown;
-   mode: string;
-}
-
-const StyledLayout = styled(Box)<IStyledLayoutExtendsProps>(({ mode }) => ({
-   background: mode === 'dark' ? '#000' : '#f6f6f6',
+const StyledLayout = styled(Box)(({ theme }) => ({
+   background: theme.palette.mode === 'dark' ? '#000' : '#f6f6f6',
+   color: theme.palette.mode !== 'dark' ? '#000' : '#f6f6f6',
    display: 'flex'
 }));
 
 const Layout: FC<ILayoutProps> = () => {
-   const { palette } = useTheme();
-
    return (
-      <StyledLayout mode={palette.mode}>
+      <StyledLayout>
          <Sidebar />
          <Main />
       </StyledLayout>

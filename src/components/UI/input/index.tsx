@@ -13,7 +13,7 @@ const Input: FC<InputProps> = (props) => {
                root: {
                   background: '#777777',
                   padding: '.8rem',
-                  borderRadius: '3px',
+                  borderRadius: '9px',
                   fontSize: '1rem',
                   color: '#f5f5f5',
                   '& input::placeholder': {

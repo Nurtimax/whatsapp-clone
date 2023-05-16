@@ -42,7 +42,12 @@ const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
             main: '#25D366',
             light: '#34B7F1'
          },
-         mode: data.mode
+         mode: data.mode,
+         text: {
+            primary: data.mode === 'dark' ? '#777777' : '#000',
+            secondary: data.mode === 'dark' ? '#777777' : '#000',
+            disabled: data.mode === 'dark' ? '#777777b7' : '#000000b6'
+         }
       }
    });
 
